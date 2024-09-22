@@ -9,3 +9,4 @@
 - Flyway Migration: Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema.
 - PostgreSQL / MySQL Driver & Spring Data MongoDB: Driver to connect to database
 - Wiremock: Mock http response
+- KeyCloak: Open source IAM, provide many features: SSO, Identity Broking and Social Login, etc. Check out at [this](https://www.keycloak.org/)

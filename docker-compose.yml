@@ -1,6 +1,6 @@
 version: '4'
 services:
-  mongodb:
+  product_db:
     image: mongo:7.0.5
     container_name: product_db
     ports:
@@ -10,18 +10,18 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: product-service
     volumes:
-      - ./data/mongodb:/data/db
-  mysql:
-    image: mysql:8.3.0
-    container_name: mysql
+      - ./data/product_db:/data/db
+  order_db:
+    image: mysql:8.4.2
+    container_name: order_db
     environment:
       MYSQL_ROOT_PASSWORD: order_db
     ports:
       - "3306:3306"
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - ./data/order_db:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-  postgresql:
+  inventory_db:
     image: postgres:16.4
     container_name: inventory_db
     environment:
@@ -30,4 +30,33 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./data/postgresql:/var/lib/postgresql
+      - ./data/inventory_db:/var/lib/postgresql
+
+  keycloak_db:
+    container_name: keycloak_db
+    image: mysql:8.3.0
+    volumes:
+      - ./data/keycloak_db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:24.0.1
+    command: [ "start-dev", "--import-realm" ]
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+    depends_on:
+      - keycloak_db
