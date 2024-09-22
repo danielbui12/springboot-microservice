@@ -21,3 +21,13 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  postgresql:
+    image: postgres:16.4
+    container_name: postgresql
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: inventory_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql
