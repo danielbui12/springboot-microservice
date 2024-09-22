@@ -1,4 +1,4 @@
-# Java Microservices Example
+# Spring Boot Microservices Example
 
 ## Tech stack
 - Spring Cloud Feign: allows services to synchronously communicate with each other.
