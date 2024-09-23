@@ -12,10 +12,10 @@ services:
     volumes:
       - ./data/product_db:/data/db
   order_db:
-    image: mysql:8.4.2
+    image: mysql:8.3.0
     container_name: order_db
     environment:
-      MYSQL_ROOT_PASSWORD: order_db
+      MYSQL_ROOT_PASSWORD: mysql
     ports:
       - "3306:3306"
     volumes:
@@ -34,7 +34,7 @@ services:
 
   keycloak_db:
     container_name: keycloak_db
-    image: mysql:8.3.0
+    image: mysql:8.4.2
     volumes:
       - ./data/keycloak_db:/var/lib/mysql
     environment:
