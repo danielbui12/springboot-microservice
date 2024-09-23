@@ -11,3 +11,6 @@
 - PostgreSQL / MySQL Driver & Spring Data MongoDB: Driver to connect to database
 - Wiremock: Mock http response
 - KeyCloak: Open source IAM, provide many features: SSO, Identity Broking and Social Login, etc. Check out at [this](https://www.keycloak.org/)
+- Circuit Breaker: For resilient application
+  - Resilience4j is a fault tolerance library designed for Java8 and functional programming
+  - Spring Retry
