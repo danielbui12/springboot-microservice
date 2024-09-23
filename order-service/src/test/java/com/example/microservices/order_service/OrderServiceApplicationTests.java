@@ -41,7 +41,12 @@ class OrderServiceApplicationTests {
                 {
                      "skuCode": "iphone_16",
                      "price": 1235,
-                     "quantity": 2
+                     "quantity": 2,
+					 "userDetails": {
+						 "email": "huytung12@proton.me",
+						 "firstName": "DDDD",
+						 "lastName": "TTTT"
+					 }
                 }
                 """;
 		InventoryClientStub.stubInventoryCall("iphone_16", 2);
