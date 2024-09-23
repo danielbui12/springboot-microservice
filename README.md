@@ -26,4 +26,7 @@
 - Notification Service
 - API Gateway using Spring Cloud Gateway MVC
 
+## Architecture
+
+![architecture](https://github.com/user-attachments/assets/f3c15c2f-bcad-4130-871c-25f402b0540f)
 
