@@ -1,7 +1,8 @@
 # Spring Boot Microservices Example
 
 ## Tech stack
-- Spring Cloud Feign: allows services to synchronously communicate with each other.
+- **DEPRECATED** Spring Cloud Feign: allows services to synchronously communicate with each other.
+  - Using Spring REST Client instead
 - Spring Web: for RESTful web API
 - Lombok: Java annotation
 - Testcontainer: lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
