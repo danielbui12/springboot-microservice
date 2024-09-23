@@ -1,8 +1,8 @@
 # Spring Boot Microservices Example
 
 ## Tech stack
-- **DEPRECATED** Spring Cloud Feign: allows services to synchronously communicate with each other.
-  - Using Spring REST Client instead
+- Spring Boot
+- Spring REST Client: allows services to synchronously communicate with each other.
 - Spring Web: for RESTful web API
 - Lombok: Java annotation
 - Testcontainer: lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
@@ -13,4 +13,17 @@
 - KeyCloak: Open source IAM, provide many features: SSO, Identity Broking and Social Login, etc. Check out at [this](https://www.keycloak.org/)
 - Circuit Breaker: For resilient application
   - Resilience4j is a fault tolerance library designed for Java8 and functional programming
-  - Spring Retry
+- API Gateway using Spring Cloud Gateway MVC
+- Mongo DB
+- MySQL
+- Kafka
+- Grafana Stack (Prometheus, Grafana, Loki and Tempo)
+
+## Services Overview
+- Product Service
+- Order Service
+- Inventory Service
+- Notification Service
+- API Gateway using Spring Cloud Gateway MVC
+
+
