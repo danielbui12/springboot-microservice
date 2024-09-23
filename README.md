@@ -28,5 +28,5 @@
 
 ## Architecture
 
-![architecture](https://github.com/user-attachments/assets/f3c15c2f-bcad-4130-871c-25f402b0540f)
+![architecture](https://github.com/user-attachments/assets/d2409732-d33c-4d58-8d3a-e1de6791ddc5)
 
