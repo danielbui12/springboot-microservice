@@ -23,8 +23,8 @@ public class OrderService {
     private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     public Order placeAnOrder(OrderRequest orderData) {
-//        boolean isExistingItem = inventoryClient.isInStock(orderData.skuCode(), orderData.quantity());
-//        if (isExistingItem) {
+        boolean isExistingItem = inventoryClient.isInStock(orderData.skuCode(), orderData.quantity());
+        if (isExistingItem) {
             Order order = new Order();
             order.setOrderNumber(UUID.randomUUID().toString());
             order.setPrice(orderData.price());
@@ -43,9 +43,9 @@ public class OrderService {
             kafkaTemplate.send("order-placed", orderPlacedEvent);
             log.info("End sending {} topic to Kafka", ORDER_PLACED_EVENT);
             return order;
-//        } else {
-//            throw new RuntimeException("Item is not existed in Inventory");
-//        }
+        } else {
+            throw new RuntimeException("Item is not existed in Inventory");
+        }
     }
 
     public List<OrderResponse> getAllOrders() {

@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: product-service
     volumes:
-      - ./data/product_db:/data/db
+      - ../data/product_db:/data/db
   order_db:
     image: mysql:8.3.0
     container_name: order_db
@@ -19,8 +19,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./data/order_db:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../data/order_db:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
   inventory_db:
     image: postgres:16.4
     container_name: inventory_db
@@ -30,13 +30,13 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./data/inventory_db:/var/lib/postgresql
+      - ../data/inventory_db:/var/lib/postgresql
 
   keycloak_db:
     container_name: keycloak_db
     image: mysql:8.4.2
     volumes:
-      - ./data/keycloak_db:/var/lib/mysql
+      - ../data/keycloak_db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: keycloak
@@ -57,7 +57,7 @@ services:
     ports:
       - "8181:8080"
     volumes:
-      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+      - ./keycloak/realms/:/opt/keycloak/data/import/
     depends_on:
       - keycloak_db
 
@@ -109,3 +109,41 @@ services:
       KAFKA_CLUSTERS_BOOTSTRAPSERVERS: broker:29092
 #      KAFKA_CLUSTERS_SCHEMAREGISTRY: http://schema-registry:8081
       DYNAMIC_CONFIG_ENABLED: 'true'
+
+  loki:
+    image: grafana/loki:main
+    container_name: loki
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+    ports:
+      - "3100:3100"
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    container_name: prometheus
+    command:
+      - --enable-feature=exemplar-storage
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+  tempo:
+    image: grafana/tempo:2.2.2
+    container_name: tempo
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo.yaml:ro
+      - ../data/tempo:/tmp/tempo
+    ports:
+      - "3110:3100"  # Tempo
+      - "9411:9411" # zipkin
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: grafana
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - "3000:3000"

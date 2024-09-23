@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+  - name: 'SpringBoot Microservices'
+    orgId: 1
+    folder: 'springboot-microservices'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/springboot-microservices
