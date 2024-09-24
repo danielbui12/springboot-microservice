@@ -140,10 +140,7 @@ services:
     image: grafana/grafana:11.2.0
     container_name: grafana
     volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./grafana/provisioning/:/etc/grafana/provisioning/
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
       - "3000:3000"
